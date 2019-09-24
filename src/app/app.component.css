@@ -1,0 +1,11 @@
+#treeDiv {
+  z-index: 0;
+  position: relative;
+}
+
+#treeCode {
+  z-index: 1000;
+  position: relative;
+  top: -310px;
+  left: 5px;
+}

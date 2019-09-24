@@ -1,0 +1,29 @@
+trigger:
+- develop
+
+pool:
+    vmImage: 'VS2017-Win2016'
+
+steps:
+
+- script: npm install -g @angular/cli
+- script: npm install
+- script: npm run-script build
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'dist/sharetreenew'
+    includeRootFolder: false
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    connectionType: 'AzureRM'
+    azureSubscription: 'Share Web Dev'
+    appType: webApp
+    enableCustomDeployment: true
+    deploymentType: 'webDeploy'
+    removeAdditionalFilesFlag: true
+    webAppName: 'shareconnect-dev'
+    packageForLinux: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip

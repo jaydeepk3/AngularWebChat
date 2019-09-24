@@ -1,0 +1,19 @@
+<div class="text-center align-middle" *ngIf="isLoading == 1">
+  <img src="/assets/images/giphy.gif" class="img-fluid" alt="">
+</div>
+<div id="sidepanel" [ngClass]="isLoading == 1 ? 'position-abosulate' : 'position-none'">
+  <div id="contacts">
+    <ul>
+      <li class="contact cursor-pointer`" *ngFor="let chat of chatList"
+        (click)="changeChat(chat.Id, chat.Name)">
+        <div class="wrap">
+          <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+          <div class="meta">
+            <p class="name">{{chat.Name}}</p>
+            <p class="preview">{{chat.Messages[chat.Messages.length - 1].MessageText}}</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
